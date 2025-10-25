@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacıbayram Menü API - Landing Page</title>
+    <style>
+        /* * TEMEL STİLLER VE RENK PALETİ
+         * Orijinal tasarımdan ilham alınmıştır.
+         */
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --primary-color: #6d5be1; /* Mor/Lavanta tonu (Özelleştirilebilir) */
+            --secondary-color: #d9f0c5; /* Açık yeşil tonu */
+            --tertiary-color: #fef7c3; /* Açık sarı tonu */
+            --dark-card-bg: #222222;
+            --light-gray: #f4f4f4;
+            --border-color: #e0e0e0;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --border-radius: 16px; /* Tasarımdaki belirgin yuvarlaklık */
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* * NAVİGASYON (HEADER)
+         */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .navbar .nav-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.8;
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+
+        /* * HERO (ANA BÖLÜM)
+         */
+        .hero-section {
+            padding: 60px 0;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 span {
+            color: var(--primary-color);
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+        }
+        
+        /* Sağ taraftaki kartlar */
+        .hero-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            padding: 24px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+        }
+        
+        .card.dark-card {
+            background-color: var(--dark-card-bg);
+            color: var(--bg-color);
+        }
+        
+        .dark-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .dark-card-header span {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .dark-card-header .icon {
+            font-size: 2rem;
+            /* Gerçek bir ikon (örn: SVG) kullanmak daha iyi olur */
+        }
+
+        .card.yellow-card {
+            background-color: var(--tertiary-color);
+            text-align: center;
+        }
+
+        .card .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .card .stat-label {
+            font-size: 1rem;
+            color: #333;
+            margin: 0;
+        }
+
+        /* * ALT İSTATİSTİK VE ÖZELLİK BÖLÜMÜ
+         */
+        .bottom-section {
+            padding: 40px 0;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
+        }
+        
+        .stats-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card.green-card {
+            background-color: var(--secondary-color);
+        }
+        
+        .green-card h3 {
+            font-size: 1.5rem;
+            margin-top: 0;
+        }
+
+        .card.gray-card {
+            background-color: var(--light-gray);
+            text-align: center;
+        }
+
+        /* Sağdaki "Popüler Kurslar" / "API Özellikleri" */
+        .features-section {
+            background-color: #f3f0ff; /* Açık mor/lavanta */
+            border-radius: var(--border-radius);
+            padding: 40px;
+        }
+
+        .features-section h2 {
+            font-size: 2.5rem;
+            margin-top: 0;
+        }
+
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .feature-tags .tag {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .features-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .features-footer p {
+            flex: 1;
+            margin-right: 20px;
+            color: #333;
+        }
+        
+        .features-footer .arrow-icon {
+            font-size: 3rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .features-footer .arrow-icon:hover {
+            transform: translateX(10px);
+        }
+        
+        /* MOBİL UYUMLULUK (Basit) */
+        @media (max-width: 992px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+            }
+            .hero-cards {
+                order: -1; /* Kartları üste al */
+            }
+            .bottom-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar .nav-links {
+                display: none; /* Mobil için menü butonu gerekir */
+            }
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar container">
+        <a href="#" class="logo">Hacıbayram API</a>
+        <div class="nav-links">
+            <a href="#">Ana Sayfa</a>
+            <a href="#">Özellikler</a>
+            <a href="#">Dokümantasyon</a>
+            <a href="#">Fiyatlandırma</a>
+        </div>
+        <div class="nav-buttons">
+            <a href="#" class="btn btn-secondary">Giriş Yap</a>
+            <a href="#" class="btn btn-primary">Kayıt Ol</a>
+        </div>
+    </nav>
+
+    <header class="hero-section container">
+        <div class="hero-text">
+            <h1>
+                Günlük <span>Kapsamlı Menü</span> API Sistemi
+            </h1>
+            <p>
+                Bu platform, deneyimli geliştirici desteği ile çeşitli entegrasyonlar için zengin API endpoint'leri sağlar.
+            </p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary">Dokümantasyonu İncele</a>
+                <a href="#" class="btn btn-secondary">Hemen Başla</a>
+            </div>
+        </div>
+
+        <div class="hero-cards">
+            <div class="card dark-card">
+                <div class="dark-card-header">
+                    <span>Hoş Geldiniz</span>
+                    <span class="icon">*</span>
+                </div>
+                <p>
+                    İster yeni öğrenci olun, ister akademisyen; API'm ile sistemlerinizi zenginleştirin ve veriyi size en uygun şekilde yönetin.
+                </p>
+            </div>
+            <div class="card yellow-card">
+                <p class="stat-number">+100</p>
+                <p class="stat-label">Güvenli Endpoint<br>kullanımınızda</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="bottom-section container">
+        <div class="stats-column">
+            <div class="card green-card">
+                <h3>Yeni Entegrasyonlar ile Gücünüzü Artırın</h3>
+                <a href="#" class="btn btn-secondary">Daha Fazla Detay</a>
+            </div>
+            
+            <div class="card gray-card">
+                <p class="stat-number">+5</p>
+                <p class="stat-label">Aktif Entegrasyon<br>ve Çözüm Ortağı</p>
+            </div>
+
+            <div class="card gray-card">
+                <p class="stat-number">%99.9</p>
+                <p class="stat-label">Garantili Uptime<br>ile kesintisiz hizmet</p>
+            </div>
+        </div>
+
+        <div class="features-section">
+            <h2>Popüler Özellikler</h2>
+            <div class="feature-tags">
+                <span class="tag">Menü Yönetimi</span>
+                <span class="tag">Mobil Entegrasyonu</span>
+                <span class="tag">Gelecek Menü Takibi</span>
+                <span class="tag">Analitik</span>
+                <span class="tag">Fiyat bilisi</span>
+                <span class="tag">Yemekhane Bilgileri</span>
+                <span class="tag">Webhooks</span>
+            </div>
+            <div class="features-footer">
+                <p>
+                    Platformumuz, çeşitli iş kolları için üst düzey API özellikleri sunar. alanında uzman kişi tarafından hazırlanan bu çözümler, okulun başarısı için size güncel ve yüksek kaliteli veriler sağlar.
+                </p>
+                <a href="#" class="arrow-icon">→</a>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
