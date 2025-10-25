@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacıbayram API - Fiyatlandırma</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* * TEMEL STİLLER VE DÜZEN */
+        :root {
+            --bg-color: #ffffff; /* Beyaz ana arka plan */
+            --text-color: #1a1a1a;
+            --text-secondary: #555555;
+            --border-color: #e5e7eb; /* Açık gri */
+            --primary-color: #1f2937; /* Koyu gri/siyah butonlar için */
+            --accent-blue: #3b82f6; /* Mavi vurgu */
+            /* image_cc9197.jpg'den renkler: */
+            --accent-purple: #f3e8ff;
+            --accent-yellow: #fef9c3;
+            --accent-green: #dcfce7;
+            --font-family: "Inter", sans-serif;
+            --container-width: 1280px;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* * NAVİGASYON (image_cba4da.jpg'ye çok benzer) */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--text-color);
+        }
+
+        .btn {
+            padding: 10px 22px;
+            border-radius: 6px; 
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid var(--primary-color);
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+
+        /* * BAŞLIK BÖLÜMÜ */
+        .hero-section {
+            text-align: center;
+            padding: 80px 0 60px;
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin: 0 0 15px 0;
+            letter-spacing: -2px;
+            color: var(--text-color);
+        }
+        
+        .hero-section p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* * FİYATLANDIRMA GRİDİ */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding-bottom: 80px;
+        }
+        
+        .pricing-card {
+            background-color: var(--content-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            height: 100%; /* Kartların eşit boyda olması için */
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Kart üstü vurgu alanı (image_cc9197.jpg'ye çok benzer) */
+        .card-accent {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            border-radius: 0 0 0 100px; /* Köşe yuvarlatma ile keskinlik */
+            opacity: 0.7;
+            z-index: 1;
+        }
+        
+        .plan-header {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .plan-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 10px;
+            color: var(--text-color);
+            background-color: var(--border-color);
+        }
+        
+        .plan-price {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin: 10px 0 5px 0;
+            line-height: 1;
+            letter-spacing: -1px;
+        }
+        .plan-price span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        
+        .plan-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 30px 0;
+            flex-grow: 1;
+        }
+        .plan-features li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        
+        .plan-features li .check-icon { 
+            color: var(--accent-blue);
+            font-weight: bold; 
+            margin-right: 10px;
+            line-height: 1.4;
+            font-size: 1.1rem;
+        }
+
+        .btn-plan {
+            display: block;
+            text-align: center;
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+        
+        /* * PLAN RENKLENDİRMELERİ */
+        .free .card-accent { background-color: var(--accent-purple); }
+        .scale .card-accent { background-color: var(--accent-yellow); }
+        .enterprise .card-accent { background-color: var(--accent-green); }
+        
+        .scale .btn-plan {
+            background-color: var(--accent-blue);
+            color: var(--content-bg);
+        }
+        
+        .free .btn-plan, .enterprise .btn-plan {
+            background-color: var(--border-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+
+        /* * Mobil Uyumluluk */
+        @media (max-width: 992px) {
+            .pricing-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 700px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar container">
+        <a href="index.html" class="logo">Hacıbayram API</a>
+        <nav class="nav-links">
+            <a href="ozellikler.html">Özellikler</a>
+            <a href="doc.html">Dokümantasyon</a>
+            <a href="price.html" style="color: var(--text-color); font-weight: 600;">Fiyatlandırma</a>
+        </nav>
+        <a href="#" class="btn">API Anahtarı Al</a>
+    </header>
+
+    <div class="hero-section">
+        <div class="container">
+            <h1>
+                API Entegrasyonunuzu Kolayca Ölçeklendirin.
+            </h1>
+            <p>
+                İşletme boyutunuz ne olursa olsun, menü ve sipariş otomasyonu için en uygun maliyetli çözümü sunuyoruz.
+            </p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="pricing-grid">
+            
+            <div class="pricing-card free">
+                <div class="card-accent"></div>
+                <div class="plan-header">
+                    <div class="plan-name">ÜCRETSİZ DENEME</div>
+                    <h3>Geliştirici</h3>
+                </div>
+                <div class="plan-price">0₺ <span>/aylık</span></div>
+                <p class="plan-description">
+                    API'mizi test edin, entegrasyonu doğrulayın ve kişisel projelerinizde kullanın.
+                </p>
+                
+                <ul class="plan-features">
+                    <li><span class="check-icon">✓</span> 1 adet Entegrasyonu</li>
+                    <li><span class="check-icon">✓</span> Aylık 2.000 API İsteği</li>
+                    <li><span class="check-icon">✓</span> Temel Menü Senkronizasyonu</li>
+                    <li><span class="check-icon">✓</span> Webhooks Erişimi Yok</li>
+                    <li><span class="check-icon">✓</span> E-posta Desteği</li>
+                </ul>
+                <a href="#" class="btn btn-plan">Ücretsiz Başla</a>
+            </div>
+            
+            <div class="pricing-card scale">
+                <div class="card-accent" style="background-color: var(--accent-yellow);"></div>
+                <div class="plan-header">
+                    <div class="plan-name">POPÜLER SEÇİM</div>
+                    <h3>Profesyonel</h3>
+                </div>
+                <div class="plan-price">₺ <span>/aylık</span></div>
+                <p class="plan-description">
+                    Operasyonlarını tamamen otomatikleştirmek isteyenler için.
+                </p>
+                
+                <ul class="plan-features">
+                    <li><span class="check-icon">✓</span> tüm yemekhaneler ve Kantinler</li>
+                    <li><span class="check-icon">✓</span> Aylık 100.000 API İsteği</li>
+                    <li><span class="check-icon">✓</span> Menü, Stok Yönetimi</li>
+                    <li><span class="check-icon">✓</span> Tam Webhooks ve Hata Bildirimleri</li>
+                    <li><span class="check-icon">✓</span> Öncelikli E-posta ve Chat Desteği</li>
+                </ul>
+                <a href="#" class="btn btn-plan">Planı Seç</a>
+            </div>
+            
+            <div class="pricing-card enterprise">
+                <div class="card-accent"></div>
+                <div class="plan-header">
+                    <div class="plan-name">ÖZEL ÇÖZÜM</div>
+                    <h3>Kurumsal</h3>
+                </div>
+                <div class="plan-price">Özel <span>Fiyatlandırma</span></div>
+                <p class="plan-description">
+                    Yüksek hacimli, çok lokasyonlular ve özel entegrasyon gereksinimleri için.
+                </p>
+                
+                <ul class="plan-features">
+                    <li><span class="check-icon">✓</span> Limitsiz (Öğretim Üyesi ve İdare Yemekhanesi Dahil)</li>
+                    <li><span class="check-icon">✓</span> Özel API Hız Limitleri</li>
+                    <li><span class="check-icon">✓</span> 7/24 Teknik Telefon Desteği</li>
+                    <li><span class="check-icon">✓</span> Özel SLA ve Uptime Garantisi</li>
+                    <li><span class="check-icon">✓</span> Özel Hesap Yöneticisi</li>
+                </ul>
+                <a href="#" class="btn btn-plan">Bize Ulaşın</a>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
