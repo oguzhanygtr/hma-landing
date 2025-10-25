@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacıbayram API - Destek & Dokümantasyon</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* * TEMEL STİLLER VE DÜZEN
+         * image_cc2440.jpg şablonundan esinlenilmiştir.
+         */
+        :root {
+            --bg-color: #f7f7f7;
+            --content-bg: #ffffff;
+            --text-color: #1a1a1a;
+            --text-secondary: #555555;
+            --border-color: #eeeeee;
+            --accent-color: #3b82f6; /* Mavi vurgu */
+            --yellow-accent: #fef9c3; 
+            --green-accent: #dcfce7;
+            --font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            --container-width: 1000px;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* * NAVİGASYON */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            background-color: var(--content-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .navbar .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .btn {
+            padding: 8px 18px;
+            border-radius: 6px; 
+            text-decoration: none;
+            font-weight: 600;
+            background-color: var(--text-color);
+            color: var(--content-bg);
+            font-size: 0.9rem;
+        }
+
+        /* * BAŞLIK VE GİRİŞ BÖLÜMÜ */
+        .hero-section {
+            text-align: center;
+            padding: 80px 0 50px;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+            letter-spacing: -1.5px;
+        }
+        
+        .ampersand {
+            color: var(--text-color);
+            font-style: italic;
+            font-size: 1em;
+            margin: 0 8px;
+        }
+        
+        .hero-section p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .full-doc-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* * İKİ SÜTUNLU KARTLAR GRİDİ */
+        .card-section {
+            padding-bottom: 50px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .feature-card {
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        /* Kart Simgesi */
+        .feature-card .icon {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 15px;
+            height: 40px;
+            width: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background-color: var(--content-bg);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+            line-height: 1.4;
+        }
+        
+        .feature-card p {
+            margin: 0 auto;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            max-width: 400px;
+        }
+
+        /* Vurgulu Alt Bölüm */
+        .highlight-section {
+            padding: 40px 0 80px;
+        }
+        
+        .highlight-card-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .highlight-card {
+            padding: 30px;
+            text-align: center;
+            border-radius: var(--border-radius);
+        }
+
+        /* Renk Vurguları */
+        .yellow-highlight {
+            background-color: var(--yellow-accent);
+        }
+        .green-highlight {
+            background-color: var(--green-accent);
+        }
+        
+        /* * SSS BÖLÜMÜ */
+        .faq-section {
+            padding: 40px 0 80px;
+        }
+        
+        .faq-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .faq-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Artı/Eksi İkonu */
+        .faq-icon {
+            font-size: 1.5rem;
+            line-height: 1;
+            transition: transform 0.3s ease;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-top: 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding-top 0.3s ease-out;
+            padding-right: 20px;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 200px; /* İçeriğe göre ayarlanabilir, büyük bir değer verilir */
+            padding-top: 5px;
+        }
+        
+        /* Mobil Uyumluluk */
+        @media (max-width: 800px) {
+            .card-grid, .highlight-card-row {
+                grid-template-columns: 1fr;
+            }
+            .hero-section h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar container">
+        <a href="index.html" class="logo">Hacıbayram API</a>
+        <nav class="nav-links">
+            <a href="ozellikler.html">Özellikler</a>
+            <a href="#">Dokümantasyon</a>
+            <a href="#">Fiyatlandırma</a>
+        </nav>
+        <a href="#" class="btn">Giriş Yap</a>
+    </header>
+
+    <div class="hero-section">
+        <div class="container">
+            <h1>
+                Destek <span class="ampersand">&</span> Dokümantasyon
+            </h1>
+            <p>
+                Sorularınıza hızlı cevaplar bulun. Aradığınızı bulamıyorsanız, iletişime geçiniz.
+            </p>
+        </div>
+    </div>
+    
+    <div class="card-section container">
+        <div class="card-grid">
+            
+            <div class="feature-card">
+                <div class="icon">📄</div>
+                <h3>API'miz Ne Yapar?</h3>
+                <p>
+                    yemekhane menü, fiyat ve stok bilgilerini tek bir merkezden, anlık senkronize etmesini sağlar.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="icon">💻</div>
+                <h3>Nasıl Entegre Edilir?</h3>
+                <p>
+                    Basit ve adım adım ilerleyen dokümantasyonumuz ile dakikalar içinde API anahtarınızı alıp entegrasyona başlayabilirsiniz.
+                </p>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="highlight-section container">
+        <div class="highlight-card-row">
+            
+            <div class="highlight-card yellow-highlight">
+                <div class="icon" style="color: var(--text-color);">📞</div>
+                <h3>Nasıl Destek Alırım?</h3>
+                <p>
+                    Destek e-posta, telefon ve entegrasyon kanalları üzerinden sorularınızı yanıtlamak için hazırdır. 
+                </p>
+                <p>
+                    <a href="#" class="full-doc-link">Destek Ekibimizle Konuşun →</a>
+                </p>
+            </div>
+            
+            <div class="highlight-card green-highlight">
+                <div class="icon" style="color: var(--text-color);">💳</div>
+                <h3>Fiyatlandırma Nasıl Yapılır?</h3>
+                <p>
+                    Fiyatlandırma, aylık API isteği hacminize göre belirlenir.
+                </p>
+                <p>
+                    <a href="#" class="full-doc-link">Fiyatlandırma Sayfasını İncele →</a>
+                </p>
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="faq-section container">
+        <h2>Sıkça Sorulan Sorular (SSS)</h2>
+        
+        <div class="faq-item" onclick="toggleAnswer(this)">
+            <div class="faq-question">
+                Menü güncellemeleri ne kadar sürede platformlara yansır?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Menü güncellemeleri (fiyat veya stok) API çağrısından itibaren genellikle 5 saniye içinde tüm entegre platformlara yansır. Ağ yoğunluğuna bağlı olarak bu süre maksimum 30 saniyeyi bulabilir.
+            </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleAnswer(this)">
+            <div class="faq-question">
+                API anahtarımı nasıl alabilirim?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Sitemiz üzerinden kaydolarak Geliştirici panelinize erişim sağlayabilirsiniz. Panel içerisindeki "API Anahtarları" bölümünden ücretsiz test anahtarınızı anında oluşturabilirsiniz.
+            </div>
+        </div>
+        
+        <div class="faq-item" onclick="toggleAnswer(this)">
+            <div class="faq-question">
+                Menüye resim ekleme desteği var mı?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Evet, menü ürünlerinize ait resim URL'lerini ilgili API çağrısı ile göndermeniz gerekmektedir. API, bu URL'leri alıp entegre platformlara iletir. Resim yükleme ve barındırma hizmeti size ait olmalıdır.
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        function toggleAnswer(item) {
+            item.classList.toggle('active');
+            const answer = item.querySelector('.faq-answer');
+            
+            // Eğer aktifse, içeriğin yüksekliğini alıp max-height'ı ayarla (CSS geçişi için)
+            if (item.classList.contains('active')) {
+                // Cevap içeriğini gösterirken smooth animasyon için dinamik max-height hesaplama
+                answer.style.maxHeight = answer.scrollHeight + "px";
+            } else {
+                answer.style.maxHeight = '0';
+            }
+        }
+    </script>
+
+</body>
+</html>
