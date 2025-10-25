@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacıbayram API - Özellikler</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* * TEMEL STİLLER VE RENK PALETİ
+         * "Partify" tasarımından ilham alınmıştır.
+         */
+        :root {
+            --bg-color: #ffffff;
+            --main-bg: #fcfcfc; /* Ana içerik için çok hafif kırık beyaz */
+            --text-color: #1a1a1a;
+            --text-secondary: #555555;
+            --border-color: #eaeaea;
+            --highlight-color: #e3e6ff; /* Lavanta/Mavi Vurgu */
+            --accent-color: #c9f76f; /* Yeşil Vurgu (Grafik için) */
+            --font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            --border-radius: 12px;
+            --container-width: 1140px;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            /* Footer'ın içeriği ezmemesi için alta boşluk */
+            padding-bottom: 120px; 
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* * NAVİGASYON (HEADER)
+         */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .navbar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .navbar .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        
+        .navbar .logo span {
+            font-weight: 500;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 30px; /* Pill shape */
+            padding: 6px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Aktif sayfa linkini belirler. */
+        .nav-links a.active,
+        .nav-links a:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .btn {
+            padding: 10px 22px;
+            border-radius: 30px; /* Tam yuvarlak kenar */
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+        
+        .btn-primary:hover {
+            opacity: 0.8;
+        }
+
+        /* * SAYFA İÇERİK ANA BÖLÜMÜ
+         */
+        .page-section {
+            background-color: var(--main-bg);
+        }
+
+        .hero-section {
+            padding: 80px 0;
+            display: grid;
+            grid-template-columns: 1fr 0.8fr; /* Metin sola, grafik sağa */
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem; /* 56px */
+            font-weight: 700;
+            line-height: 1.2;
+            margin: 0 0 24px 0;
+            letter-spacing: -1.5px;
+        }
+        
+        .hero-text h1 span.highlight {
+            background-color: var(--highlight-color);
+            border-radius: 8px;
+            padding: 0 10px;
+        }
+
+        .hero-text p.subtitle {
+            font-size: 1.15rem; /* 18px */
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0;
+        }
+
+        /* Sağ taraftaki soyut grafik alanı */
+        .hero-graphic {
+            height: 350px;
+            background-color: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            position: relative;
+            overflow: hidden;
+            /* Basit bir soyut grid deseni */
+            background-image: 
+                linear-gradient(to right, #f0f0f0 1px, transparent 1px), 
+                linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        /* İçerik Alanı (Özellik Kartları) */
+        .content-area {
+            padding: 0 0 100px 0;
+            background-color: var(--main-bg);
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 40px;
+            padding-top: 20px; /* Hero'dan biraz ayırmak için */
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .feature-card {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            border-color: var(--text-color);
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .feature-card .icon {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            /* İkonlar için SVG veya font-icon kullanmak daha iyi olur */
+        }
+        .feature-card h3 { 
+            margin: 0 0 10px 0; 
+            font-size: 1.1rem;
+        }
+        .feature-card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+
+        /* * ALT ÇUBUK (FOOTER)
+         */
+        .bottom-bar {
+            position: fixed;
+            bottom: 20px; /* Sayfanın altından biraz boşluklu */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: var(--container-width);
+            
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1.5fr 1.5fr;
+            align-items: center;
+        }
+
+        .bottom-bar .bar-item {
+            padding: 20px 24px;
+        }
+
+        /* İlk öğe hariç sola çizgi */
+        .bottom-bar .bar-item:not(:first-child) {
+            border-left: 1px solid var(--border-color);
+        }
+        
+        .bottom-bar .bar-item h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0 0 4px 0;
+        }
+        
+        .bottom-bar .bar-item p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.4;
+        }
+        
+        .btn-footer {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Mobil Uyumlu Hale Getirme */
+        @media (max-width: 992px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+            }
+            .hero-graphic {
+                display: none; /* Mobilde grafiği gizle */
+            }
+            .feature-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .nav-links {
+                display: none; /* Mobilde basit bir menü ikonu gerekir */
+            }
+            .bottom-bar {
+                display: none; /* Mobilde bu sabit çubuk sorun yaratabilir */
+            }
+            body {
+                padding-bottom: 20px;
+            }
+        }
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container navbar-inner">
+            <a href="#" class="logo">Hacıbayram <span>API</span></a>
+            
+            <nav class="nav-links">
+                <a href="#" class="active">Özellikler</a>
+                <a href="#">Dokümantasyon</a>
+                <a href="#">Fiyatlandırma</a>
+            </nav>
+
+            <a href="#" class="btn btn-primary">API Anahtarı Al</a>
+        </div>
+    </header>
+
+    
+    <main class="page-section">
+        
+        <div class="hero-section container">
+            <div class="hero-text">
+                <h1>
+                    Yemekhane operasyonunu
+                    <span class="highlight">otomatize</span> eder.
+                </h1>
+                <p class="subtitle">
+                    Hacıbayram API'nin sunduğu güçlü özellikler ile menü ve yönetimi tek bir merkezden kolayca yönetin.
+                </p>
+            </div>
+            <div class="hero-graphic">
+                </div>
+        </div>
+        
+        <div class="content-area container">
+            <h2 class="section-title">Temel Özellikler</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="icon">📄</div>
+                    <h3>Kapsamlı Menü Yönetimi</h3>
+                    <p>Ürünleri, kategorileri, seçenekleri (sos, içecek vb.) ve fiyatları anlık olarak tüm platformlarda güncelleyin.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🛒</div>
+                    <h3>Gerçek Zamanlı Veri Akışı</h3>
+                    <p>Tüm online platformlarından gelen bilgileri (yeni, onay, iptal) anında kendi sisteminize çekin.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">ℹ️</div>
+                    <h3>Yemekhane Bilgi Yönetimi</h3>
+                    <p>Açılış/kapanış saatleri, servis bölgeleri ve yoğunluk durumunu tek bir API isteği ile yönetin.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🔔</div>
+                    <h3>Webhooks Desteği</h3>
+                    <p>Yeni bir menü geldiğinde veya bir durum değiştiğinde sizi anında bilgilendiren sistemle proaktif olun.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">📊</div>
+                    <h3>Analitik ve Raporlama</h3>
+                    <p>Yemek verilerinizi, en popüler menü ve performansı takip etmek için yapılandırılmış veri alın.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+
+    <footer class="bottom-bar">
+        <div class="bar-item">
+            <a href="#" class="btn btn-footer">Hemen Başlayın</a>
+        </div>
+        <div class="bar-item">
+            <h3>Gerçek Zamanlı Veri ></h3>
+            <p>Sipariş ve stok verilerinize saniyeler içinde ulaşın.</p>
+        </div>
+        <div class="bar-item">
+            <h3>%99.9 Uptime Garantisi ></h3>
+            <p>Güvenilir altyapımız ile kesintisiz hizmetin keyfini çıkarın.</p>
+        </div>
+        <div class="bar-item">
+            <h3>Hızlı Destek ></h3>
+            <p>Entegrasyon sürecinde uzman yanınızda.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
